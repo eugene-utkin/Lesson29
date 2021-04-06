@@ -35,8 +35,14 @@ post '/visit' do
         @date = params[:date]
         @barber = params[:barber]
         @color = params[:color]
-        Client.create :name => @username, :phone => @phone, :datestamp => @date, :barber => @barber, :color => @color
-
+        
+        c = Client.new
+        c.name = @username
+        c.phone = @phone
+        c.datestamp = @date
+        c.barber = @barber
+        c.color = @color
+        c.save
 
         @title = "Поздравляем!"
         @message = "#{@username}, вы успешно записались в Barber Shop.<br />Мы будем ждать вас #{@date}.<br />Ваш парикмахер: #{@barber}.<br />Выбранный цвет: #{@color}.<br />В случае измений мы позвоним вам на номер #{@phone}."
@@ -72,8 +78,8 @@ post '/contacts' do
    # :address              => 'smtp.mail.ru',
    # :port                 => '587',
    # :enable_starttls_auto => true,
-   # :user_name            => 'mistergrib',
-   # :password             => 'mnog',
+   # :user_name            => 'username',
+   # :password             => 'password',
    # :authentication       => :plain, # :plain, :login, :cram_md5, no auth by default
    # :domain               => "localhost.localdomain" # the HELO domain provided by the client to the server
  # }, :from => "#{@mail}", :subject => "New client!", :body => "#{@letter}")
